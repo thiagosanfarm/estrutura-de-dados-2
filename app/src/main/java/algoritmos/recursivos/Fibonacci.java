@@ -47,7 +47,7 @@ public class Fibonacci {
     }    
 
     public static void main(String[] args) {
-        int n = 4;
+        int n = 15;
        
         //Medição do tempo para versão recursiva
         long inicioRecursivo = System.nanoTime();
