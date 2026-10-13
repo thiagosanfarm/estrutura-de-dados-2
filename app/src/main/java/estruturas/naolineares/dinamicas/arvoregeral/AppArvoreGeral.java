@@ -33,6 +33,10 @@ public class AppArvoreGeral {
         System.out.println("Altura da árvore: " + arvoregeral.altura()); 
         System.out.println("Arestas da árvore: " + arvoregeral.arestas()); 
         System.out.println("Nível do Nó A: " + arvoregeral.nivelNo(NoA.obterElemento()));
+        System.out.println("Irmãos do Nó B: " + StreamSupport.stream(arvoregeral.recuperarIrmaosDe("B").spliterator(), false).map(no -> String.valueOf(no.obterElemento())).collect(Collectors.joining(", ")));
+        System.out.println("Irmãos do Nó E: " + StreamSupport.stream(arvoregeral.recuperarIrmaosDe("E").spliterator(), false).map(no -> String.valueOf(no.obterElemento())).collect(Collectors.joining(", ")));
+        System.out.println("Irmãos do Nó F: " + StreamSupport.stream(arvoregeral.recuperarIrmaosDe("F").spliterator(), false).map(no -> String.valueOf(no.obterElemento())).collect(Collectors.joining(", ")));
+        System.out.println("Irmãos do Nó A (Raiz): " + StreamSupport.stream(arvoregeral.recuperarIrmaosDe("A").spliterator(), false).map(no -> String.valueOf(no.obterElemento())).collect(Collectors.joining(", ")));
 
 
     }

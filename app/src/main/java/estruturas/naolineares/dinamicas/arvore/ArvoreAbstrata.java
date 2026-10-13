@@ -1,6 +1,7 @@
 package estruturas.naolineares.dinamicas.arvore;
 
 import java.util.Objects;
+import estruturas.lineares.dinamicas.lista.ListaSimplesmenteEncadeada;
 
 public abstract class ArvoreAbstrata<T, N extends INoArvore<T>> implements IArvore<T, N> {
 
@@ -67,7 +68,56 @@ public abstract class ArvoreAbstrata<T, N extends INoArvore<T>> implements IArvo
 
     @Override
     public Iterable<N> recuperarIrmaosDe(T elemento) {
-        throw new UnsupportedOperationException("Método não Implementado 'recuperarIrmaosDe'"); 
+        ListaSimplesmenteEncadeada<N> irmaos = new ListaSimplesmenteEncadeada<>();
+        if (this.estaVazia() || elemento == null) {
+            return irmaos;
+        }
+        if (Objects.equals(this.obterNoRaiz().obterElemento(), elemento)) {
+            return irmaos;
+        }
+
+        N pai = this.localizarPai(this.obterNoRaiz(), elemento);
+        if (pai == null) {
+            return irmaos;
+        }
+
+        Iterable<N> filhosDoPai = this.filhosDe(pai);
+        if (filhosDoPai != null) {
+            boolean elementoIgnorado = false;
+            for (N filho : filhosDoPai) {
+                if (filho != null) {
+                    if (!elementoIgnorado && Objects.equals(filho.obterElemento(), elemento)) {
+                        elementoIgnorado = true;
+                    } else {
+                        irmaos.adicionarFim(filho);
+                    }
+                }
+            }
+        }
+        return irmaos;
+    }
+
+    private N localizarPai(N noAtual, T elemento) {
+        if (noAtual == null) {
+            return null;
+        }
+        Iterable<N> filhos = this.filhosDe(noAtual);
+        if (filhos != null) {
+            for (N filho : filhos) {
+                if (filho != null && Objects.equals(filho.obterElemento(), elemento)) {
+                    return noAtual;
+                }
+            }
+            for (N filho : filhos) {
+                if (filho != null) {
+                    N pai = this.localizarPai(filho, elemento);
+                    if (pai != null) {
+                        return pai;
+                    }
+                }
+            }
+        }
+        return null;
     }
 
 }
